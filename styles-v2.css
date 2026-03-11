@@ -1,0 +1,1069 @@
+/* ========================= */
+/*        ROOT + RESET       */
+/* ========================= */
+
+:root {
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #7a7a7a;
+  --primary: #111111;
+  --border: #e5e5e5;
+  --air-soft: #f7f9fa;
+  --air-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  --fade-duration: .45s;
+
+  /* VisionOS Glass — Soft Glow */
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.65);
+  --glass-inner: rgba(255,255,255,0.35);
+  --glass-shadow: 0 6px 22px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+ 
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+}
+
+.hidden { display: none !important; }
+
+/* ========================= */
+/*     ULTRA PREMIUM BTNS    */
+/* ========================= */
+
+.primary {
+  background: #111;
+  color: #fff;
+  border-radius: 14px;
+  border: none;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background .22s ease,
+    transform .18s cubic-bezier(.25,.46,.45,.94),
+    opacity .22s ease;
+}
+
+.primary:hover { background: #000; transform: translateY(-1px); }
+.primary:active { transform: translateY(1px) scale(0.97); opacity: 0.92; }
+
+.secondary {
+  background: #f5f5f5;
+  color: #111;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary:hover { background: #ececec; }
+.secondary:active { transform: translateY(1px) scale(0.97); opacity: 0.92; }
+
+.full-width { width: 100%; }
+
+/* ========================= */
+/*         ANIMATIONS        */
+/* ========================= */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn var(--fade-duration) ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+  background-size: 400% 100%;
+  animation: skeleton 1.4s ease infinite;
+  border-radius: 14px;
+}
+
+@keyframes skeleton {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ========================= */
+/*           HEADER          */
+/* ========================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 20px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+/* ========================= */
+/*          CATALOG          */
+/* ========================= */
+
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 22px;
+  padding: 0 20px 100px;
+}
+
+/* ========================= */
+/*            CARD           */
+/* ========================= */
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--air-shadow);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .22s ease, box-shadow .22s ease;
+  opacity: 0;
+  animation: fadeIn .5s ease forwards;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+.card-image {
+  width: 100%;
+  height: 170px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease;
+}
+
+.card:hover .card-image img { transform: scale(1.06); }
+
+.card-info {
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.card-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ========================= */
+/*        PRODUCT MODAL      */
+/* ========================= */
+
+#productModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#productModal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content.modal-product {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transform: translateY(22px);
+  opacity: 0;
+  transition:
+    transform .38s cubic-bezier(.25,.46,.45,.94),
+    opacity .38s ease;
+}
+
+#productModal.open .modal-content.modal-product {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ========================= */
+/*     HERO PHOTO            */
+/* ========================= */
+
+.modal-images { width: 100%; }
+.gallery-stage {
+  width: 100%;
+  height: 52vh;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f7f7f7;
+  position: relative;
+}
+
+#carousel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+#carousel::-webkit-scrollbar { display: none; }
+
+#carousel img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+  transition: transform .35s ease;
+}
+/* ========================= */
+/*     THUMBNAILS            */
+/* ========================= */
+
+.thumb-strip {
+  display: flex;
+  gap: 10px;
+  padding: 14px 18px 20px;
+  overflow-x: auto;
+}
+
+.thumb-strip::-webkit-scrollbar { display: none; }
+
+.thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  opacity: 0.75;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.thumb.active {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========================= */
+/*     INFO BLOCK            */
+/* ========================= */
+
+.modal-info {
+  padding: 26px 22px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: flex-start;
+}
+
+.modal-info section:not(:first-child) {
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding-top: 26px;
+}
+
+.brand-row {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8c8c8c;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.42px;
+  margin: 0 0 14px;
+  color: #0f0f0f;
+}
+
+/* ========================= */
+/*        HERO PRICE ROW     */
+/* ========================= */
+
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: -2px;
+  margin-bottom: 20px;
+
+  animation: priceRowAppear .55s cubic-bezier(.25,.46,.45,.94);
+}
+
+@keyframes priceRowAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    filter: blur(4px);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Цена — компактная, плотная, спокойная */
+.modal-price {
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.3px;
+  color: #0f0f0f;
+
+  text-shadow:
+    0 1px 2px rgba(0,0,0,0.05),
+    0 3px 8px rgba(0,0,0,0.06);
+}
+
+/* Glow при выборе размера — мягкий, деликатный */
+.modal-price.bump {
+  animation: priceGlow .38s ease;
+}
+
+@keyframes priceGlow {
+  0%   { text-shadow: 0 0 0 rgba(0,0,0,0); }
+  50%  { text-shadow: 0 0 12px rgba(0,0,0,0.18); }
+  100% { text-shadow: 0 0 0 rgba(0,0,0,0); }
+}
+
+/* ========================================================= */
+/*   VULICA SOFT GLASS LABEL — PREMIUM STATUS PILL           */
+/* ========================================================= */
+
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 520;
+  letter-spacing: -0.01em;
+
+  color: rgba(0,0,0,0.82);
+
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(180%);
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.65);
+
+  box-shadow:
+    inset 0 1px 6px rgba(255,255,255,0.55),
+    inset 0 -2px 6px rgba(0,0,0,0.06),
+    0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* Верхний мягкий блик */
+.stock-pill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0; right: 0;
+  height: 40%;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.85),
+    rgba(255,255,255,0.15)
+  );
+  pointer-events: none;
+}
+
+
+/* ========================= */
+/*   MATERIALS — PREMIUM PRO */
+/* ========================= */
+
+.section-title,
+.sizes-label {
+  position: relative;
+  font-size: 13.5px;
+  font-weight: 570;
+  letter-spacing: 0.0015em;
+  color: rgba(0,0,0,0.92);
+  margin: 34px 0 18px;
+  padding-left: 1px;
+
+  opacity: 0;
+  transform: translateY(3px);
+  animation: sectionFade .42s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+
+.section-title::before,
+.sizes-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -16px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.10),
+    rgba(0,0,0,0.04),
+    rgba(0,0,0,0)
+  );
+}
+
+/* 🔥 ВОТ ЭТОТ БЛОК У ТЕБЯ ПРОПАЛ — ИЗ-ЗА ЭТОГО ВСЁ СЛОМАЛОСЬ */
+.materials-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px 18px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ключи */
+.materials-block .key {
+  font-weight: 480;
+  color: rgba(0,0,0,0.78);
+}
+
+/* значения */
+.materials-block .value {
+  font-weight: 400;
+  color: rgba(0,0,0,0.50);
+}
+
+@keyframes sectionFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* ========================= */
+/*   PREMIUM DELIVERY BLOCK  */
+/* ========================= */
+
+.delivery-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 16px 18px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(0,0,0,0.05);
+
+  box-shadow:
+    inset 0 1px 4px rgba(255,255,255,0.65),
+    inset 0 -1px 4px rgba(0,0,0,0.04),
+    0 6px 18px rgba(0,0,0,0.06);
+
+  margin-top: 22px;
+  margin-bottom: 14px;
+
+  animation: deliveryAppear .55s cubic-bezier(.25,.46,.45,.94);
+}
+
+.delivery-icon {
+  font-size: 16px;
+  opacity: 0.85;
+  transform: translateY(1px);
+}
+
+.delivery-text {
+  font-size: 13px;
+  font-weight: 480;
+  color: rgba(0,0,0,0.75);
+  line-height: 1.55;
+}
+
+@keyframes deliveryAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.015);
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* ========================= */
+/*     FIXED ACTIONS         */
+/* ========================= */
+
+.modal-actions-fixed {
+  padding: 22px 22px 30px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.modal-actions-fixed button {
+  height: 54px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ========================= */
+/*     PROFILE MODAL         */
+/* ========================= */
+
+.profile-modal .header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-modal .header .brand {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profile-modal .profile-header {
+  padding: 24px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-modal .profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+.profile-modal .profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-modal .profile-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profile-modal .profile-username {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.profile-modal .profile-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 14px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-modal .profile-tab {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 12px;
+  background: #f3f3f3;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.profile-modal .profile-tab.active {
+  background: #111;
+  color: #fff;
+}
+
+.profile-modal .profile-content {
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+
+
+/* ========================= */
+/*      SIZE CHART MODAL     */
+/* ========================= */
+
+.size-chart-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.size-chart-modal.hidden {
+  display: none;
+}
+
+.size-chart-window {
+  background: #fff;
+  padding: 26px 28px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.size-chart-header {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* ========================================================= */
+/*   VISIONOS GLASS SIZE CHART — PREMIUM LUXE EDITION        */
+/* ========================================================= */
+
+.size-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 14px 18px;
+
+  padding: 22px 20px;
+  border-radius: 18px;
+
+  /* Молочно‑стеклянный фон */
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+
+  /* Кристальный верхний блик */
+  position: relative;
+}
+.size-chart-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.85),
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0)
+  );
+  pointer-events: none;
+}
+
+/* Строки — мягкие, воздушные */
+.size-chart-grid .label,
+.size-chart-grid .values {
+  padding: 6px 0;
+}
+
+/* Тонкие кристальные разделители */
+.size-chart-grid .label:not(:first-child),
+.size-chart-grid .values:not(:first-child) {
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Текст — глубокий, но мягкий */
+.size-chart-grid .label {
+  font-weight: 600;
+  color: rgba(0,0,0,0.88);
+}
+
+.size-chart-grid .values {
+  font-weight: 450;
+  color: rgba(0,0,0,0.65);
+}
+
+/* Hover — лёгкая тактильность */
+.size-chart-grid .label:hover,
+.size-chart-grid .values:hover {
+  color: rgba(0,0,0,0.92);
+  transform: translateY(-1px);
+  transition: .22s ease;
+}
+
+
+.size-chart-close {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ========================================================= */
+/*      INK‑MORPH — адаптация под стеклянный материал        */
+/* ========================================================= */
+
+.size-ink {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  /* Более мягкое, светлое пятно под стеклом */
+  background: radial-gradient(
+    circle,
+    rgba(0,0,0,0.10) 0%,
+    rgba(0,0,0,0) 70%
+  );
+
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.25);
+}
+
+@keyframes inkSpread {
+  0%   { opacity: 0.22; transform: scale(0.25); }
+  70%  { opacity: 0.14; transform: scale(1.45); }
+  100% { opacity: 0; transform: scale(1.85); }
+}
+
+/* ========================================================= */
+/*      ACTIVE — выбранная капсула VisionOS                  */
+/* ========================================================= */
+
+.modal-sizes .size.active {
+  background: rgba(17,17,17,0.92);
+  color: #fff;
+  border-color: rgba(17,17,17,0.92);
+
+  box-shadow:
+    inset 0 0 22px rgba(255,255,255,0.22),
+    0 8px 26px rgba(0,0,0,0.22);
+
+  animation: inkBounce .22s cubic-bezier(.25,.46,.45,.94);
+}
+/* Активная плитка — базовые точки (пустые) */
+.modal-sizes .size.active .size-stock-dots span {
+  background: rgba(255,255,255,0.35);
+  opacity: 0.35;
+}
+
+/* Активная плитка — закрашенные точки по уровню стока */
+.modal-sizes .size.active .size-stock-1 span:nth-child(-n+1),
+.modal-sizes .size.active .size-stock-2 span:nth-child(-n+2),
+.modal-sizes .size.active .size-stock-3 span:nth-child(-n+3),
+.modal-sizes .size.active .size-stock-4 span:nth-child(-n+4),
+.modal-sizes .size.active .size-stock-5 span:nth-child(-n+5) {
+  background: rgba(255,255,255,0.92);
+  opacity: 1;
+}
+
+
+@keyframes inkBounce {
+  0%   { transform: scale(0.94); }
+  55%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* ========================================================= */
+/*      DISABLED — погашенное стекло                         */
+/* ========================================================= */
+
+.modal-sizes .size.disabled {
+  opacity: 0.45;
+  background: rgba(255,255,255,0.35);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: none;
+}
+/* ========================================================= */
+/*      MINI STOCK PILL — VISIONOS SOFT WHITE EDITION        */
+/* ========================================================= */
+
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* ========================= */
+/*        SIZES BLOCK        */
+/* ========================= */
+
+.sizes-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.sizes-row {
+  display: flex;
+  width: 100%;
+}
+
+.modal-sizes {
+  display: flex;
+  flex-wrap: wrap;        /* теперь можно переносить плитки */
+  gap: 10px;
+}
+
+/* ========================= */
+/*   VULICA SIZE TILES       */
+/* ========================= */
+
+.modal-sizes .size {
+  position: relative;
+  overflow: hidden;
+
+  flex: 1 0 calc(50% - 10px);   /* две плитки в ряд */
+  max-width: calc(50% - 10px);
+  min-width: 140px;
+
+  height: 68px;
+  padding: 10px 14px;
+  border-radius: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.60),
+    rgba(245,245,245,0.46)
+  );
+  border: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow:
+    inset 0 1px 6px rgba(255,255,255,0.55),
+    inset 0 -2px 6px rgba(0,0,0,0.06),
+    0 6px 18px rgba(0,0,0,0.08);
+
+  color: #111;
+  cursor: pointer;
+  transition:
+    background .25s ease,
+    transform .22s cubic-bezier(.25,.46,.45,.94),
+    box-shadow .25s ease;
+}
+
+.modal-sizes .size-top,
+.modal-sizes .size-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-sizes .size-eu {
+  font-size: 18px;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+}
+
+.modal-sizes .size-cm {
+  font-size: 13px;
+  font-weight: 480;
+  color: rgba(0,0,0,0.62);
+}
+
+.modal-sizes .size-stock-label {
+  font-size: 12px;
+  font-weight: 480;
+  color: rgba(0,0,0,0.55);
+}
+
+/* индикатор наличия — точки, как сигнал сети */
+
+.size-stock-dots {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.size-stock-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.18);
+  opacity: 0.4;
+}
+
+/* уровни заполненности 0–5 */
+
+.size-stock-0 span {
+  opacity: 0.18;
+}
+
+.size-stock-1 span:nth-child(-n+1),
+.size-stock-2 span:nth-child(-n+2),
+.size-stock-3 span:nth-child(-n+3),
+.size-stock-4 span:nth-child(-n+4),
+.size-stock-5 span:nth-child(-n+5) {
+  opacity: 1;
+  background: #111;
+}
+
+/* hover / active / disabled */
+
+.modal-sizes .size:hover:not(.disabled) {
+  box-shadow:
+    inset 0 1px 8px rgba(255,255,255,0.65),
+    inset 0 -2px 8px rgba(0,0,0,0.08),
+    0 10px 28px rgba(0,0,0,0.12),
+    0 0 18px rgba(255,255,255,0.55);
+  transform: translateY(-1px);
+}
+
+.modal-sizes .size:active:not(.disabled) {
+  transform: scale(0.97);
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.52),
+    rgba(240,240,240,0.40)
+  );
+  box-shadow:
+    inset 0 0 18px rgba(0,0,0,0.12),
+    0 4px 14px rgba(0,0,0,0.12);
+}
+
+.modal-sizes .size.active {
+  background: rgba(17,17,17,0.96);
+  color: #fff;
+  border-color: rgba(17,17,17,0.96);
+  box-shadow:
+    inset 0 0 22px rgba(255,255,255,0.22),
+    0 8px 26px rgba(0,0,0,0.22);
+}
+
+.modal-sizes .size.active .size-cm,
+.modal-sizes .size.active .size-stock-label {
+  color: rgba(255,255,255,0.78);
+}
+
+.modal-sizes .size.disabled {
+  opacity: 0.45;
+  background: rgba(255,255,255,0.35);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: none;
+  cursor: default;
+}
+/* ========================= */
+/*     SHARE BUTTON (COMPETITOR STYLE) */
+/* ========================= */
+
+.share-btn-competitor {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background .15s ease, opacity .15s ease;
+}
+
+.share-btn-competitor svg {
+  width: 20px;
+  height: 20px;
+  color: #111;
+}
+
+.share-btn-competitor:active {
+  background: #f2f2f2;
+  opacity: 0.9;
+}

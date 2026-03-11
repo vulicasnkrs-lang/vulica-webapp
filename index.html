@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>vulica.SNKRS</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/styles-v2.css?v=1" />
+  <!-- TELEGRAM / OPEN GRAPH -->
+<meta property="og:title" content="vulica.SNKRS — магазин кроссовок" />
+<meta property="og:description" content="Оригинальные кроссовки. Быстрая доставка по РБ. Лучшие цены." />
+<meta property="og:image" content="https://vulica.store/static/images/asics-gel-pickax-box.jpg" />
+<meta property="og:url" content="https://vulica.store" />
+<meta name="twitter:card" content="summary_large_image" />
+
+</head>
+
+<body>
+
+  <!-- PRODUCT MODAL -->
+  <div id="productModal" class="modal hidden">
+    <div class="modal-content modal-product">
+
+      <!-- HEADER INSIDE PRODUCT MODAL -->
+      <header class="header modal-inner-header">
+        <div class="brand">vulica.SNKRS</div>
+
+        <div class="header-actions">
+          <div id="profileAvatarModal" class="profile-avatar"></div>
+          <button id="cartBtnModal" class="primary">0 BYN</button>
+        </div>
+      </header>
+
+      <!-- SCROLLABLE BODY -->
+      <div class="modal-body">
+
+        <!-- FULLSCREEN GALLERY -->
+        <div class="modal-images">
+          <div class="gallery-stage">
+            <div class="carousel" id="carousel"></div>
+          </div>
+        </div>
+
+        <!-- THUMBNAILS -->
+        <div class="thumb-strip" id="thumbStrip"></div>
+
+        <!-- PRODUCT INFO -->
+        <div class="modal-info">
+          <section class="modal-section modal-main">
+
+            <!-- OLD BRAND ROW (kept for JS, hidden via CSS) -->
+            <div class="brand-row" style="display:none;">
+              <span id="modalBrand" class="brand-small"></span>
+              <span class="dot">·</span>
+              <span id="modalStockInline" class="stock-inline"></span>
+            </div>
+
+            <!-- NEW PREMIUM TITLE ROW -->
+          <div class="modal-title-row">
+  <h2 id="modalTitle" class="modal-title"></h2>
+
+  <!-- SHARE BUTTON (COMPETITOR STYLE) -->
+  <button id="shareBtn" class="share-btn-competitor">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/>
+      <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+      <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/>
+      <line x1="8.5" y1="10.5" x2="15.5" y2="6.5" stroke="currentColor" stroke-width="2"/>
+      <line x1="8.5" y1="13.5" x2="15.5" y2="17.5" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </button>
+</div>
+
+
+<div class="price-row">
+  <div id="modalPrice" class="modal-price"></div>
+  <div id="stockBadge" class="stock-pill"></div>
+</div>
+
+
+            <!-- PRICE -->
+            <div id="modalPrice" class="modal-price"></div>
+
+            <!-- MATERIALS (DETAILS) -->
+            <div class="section-title">Описание</div>
+            <div id="modalMaterials" class="materials-block"></div>
+            
+<!-- SIZES -->
+<div class="sizes-label">Размеры</div>
+
+<div class="sizes-block">
+
+  <!-- Строка размеров — только размеры -->
+  <div class="sizes-row">
+    <div id="modalSizes" class="modal-sizes"></div>
+  </div>
+
+</div>
+
+<!-- DELIVERY -->
+<div class="delivery-inline">
+  <span class="delivery-icon">🚚</span>
+  <span class="delivery-text">
+    Доставка по РБ 2–3 дня<br>
+    Возврат 14 дней
+  </span>
+</div>
+
+          </section> <!-- закрываем modal-section -->
+        </div> <!-- закрываем modal-info -->
+      </div> <!-- закрываем modal-body -->
+
+      <!-- FIXED ACTION BUTTONS -->
+      <div class="modal-actions-fixed">
+        <button id="reserveBtn" class="secondary reserve-btn">Забронировать</button>
+        <button id="addToCartBtn" class="primary modal-cta">В корзину</button>
+      </div>
+
+    </div> <!-- закрываем modal-content modal-product -->
+  </div> <!-- закрываем productModal -->
+
+
+
+         
+  <!-- CATALOG VIEW -->
+  <div id="catalogView">
+
+    <header class="header">
+      <div class="brand">vulica.SNKRS</div>
+
+      <div class="header-actions">
+        <div id="profileAvatar" class="profile-avatar"></div>
+        <button id="cartBtn" class="primary">0 BYN</button>
+      </div>
+    </header>
+
+    <!-- MYSTERY BOX -->
+    <section class="mystery-box" id="mysteryBox">
+      <h2>🎁 Тайная коробка дня</h2>
+      <p>Открой, чтобы узнать пару дня</p>
+      <button id="openMysteryBtn" class="primary">Открыть</button>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filters" id="filtersSection">
+      <div class="filter-row">
+        <input id="searchInput" type="text" placeholder="Поиск модели..." />
+        <select id="sortSelect">
+          <option value="">Сортировка</option>
+          <option value="price-asc">Цена: дешевле</option>
+          <option value="price-desc">Цена: дороже</option>
+        </select>
+      </div>
+
+      <div class="filter-row" style="margin-top:12px;">
+        <select id="brandFilter">
+          <option value="">Бренд</option>
+        </select>
+
+        <select id="sizeFilter">
+          <option value="">Размер</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- CATALOG -->
+    <main class="catalog" id="catalog"></main>
+
+    <!-- MYSTERY MODAL -->
+    <div class="modal hidden" id="mysteryModal">
+      <div class="modal-content" style="max-width: 420px; text-align:center;">
+        <button id="closeMystery" class="close-btn">×</button>
+
+        <h2>Пара дня 🎁</h2>
+        <img id="mysteryImg" style="width:100%; border-radius:14px; margin:12px 0;" />
+
+        <div id="mysteryTitle" class="mystery-title"></div>
+        <div id="mysteryPrice" class="mystery-price"></div>
+        <button id="mysteryOk" class="primary mystery-btn" style="margin-top:10px;">
+          Открыть каталог
+        </button>
+      </div>
+    </div>
+
+    <!-- CART DRAWER -->
+    <div class="drawer hidden" id="cartDrawer">
+      <div class="drawer-header">
+        <strong>Корзина</strong>
+        <button id="closeCart" class="close-btn">×</button>
+      </div>
+
+      <div class="drawer-list" id="cartList"></div>
+
+      <div class="drawer-footer">
+        <div class="drawer-total-row">
+          <span>Итого:</span>
+          <strong id="cartTotal">0 BYN</strong>
+        </div>
+        <button id="checkoutBtn" class="primary full-width">Оформить заказ</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRODUCT VIEW (Telegram SPA) -->
+  <div id="productView" class="hidden">
+    <button id="browserBackBtn" class="browser-back hidden">← Назад</button>
+  </div>
+
+  <!-- PROFILE MODAL -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-content profile-modal">
+
+      <header class="header">
+        <div style="width:40px;"></div>
+        <div class="brand">Профиль</div>
+        <div style="width:40px;"></div>
+      </header>
+
+      <section class="profile-header" id="profileHeader">
+        <div class="profile-avatar" id="profileAvatarProfile"></div>
+
+        <div class="profile-info">
+          <div class="profile-name" id="profileName">Гость</div>
+          <div class="profile-username" id="profileUsername"></div>
+        </div>
+      </section>
+
+      <section class="profile-tabs">
+        <button class="profile-tab active" data-tab="orders">Покупки</button>
+        <button class="profile-tab" data-tab="postponed">Отложенные</button>
+      </section>
+
+      <main class="profile-content">
+        <div id="profileOrders" class="profile-section active"></div>
+        <div id="profilePostponed" class="profile-section"></div>
+      </main>
+
+    </div>
+  </div>
+
+  <script src="/app.js?v=9"></script>
+
+</body>
+</html>
