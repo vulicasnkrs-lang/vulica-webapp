@@ -1,11 +1,6 @@
 /* Telegram */
 const tg = window.Telegram?.WebApp || null;
 
-if (tg) {
-    tg.ready();
-    tg.expand();
-}
-
 /* ========================= */
 /*          STATE            */
 /* ========================= */
@@ -110,16 +105,16 @@ let selectedSize = null;
 async function init() {
   renderSkeletons();
   await loadProducts();
-   /* 🔥 Отключаем системные кнопки Telegram, чтобы он НЕ шарил свой URL */
+
   if (tg) {
     tg.SettingsButton.hide();
     tg.disableVerticalSwipes();
     tg.disableClosingConfirmation();
   }
-// 🔥 Если WebApp открыт по ссылке с конкретным товаром
-if (tg?.initDataUnsafe?.start_param) {
-  openProductScreen(tg.initDataUnsafe.start_param);
-}
+
+  if (tg?.initDataUnsafe?.start_param) {
+    openProductScreen(tg.initDataUnsafe.start_param);
+  }
 
   restoreStock();
   cleanupReserved();
@@ -133,7 +128,9 @@ if (tg?.initDataUnsafe?.start_param) {
   renderProfileOrders();
   renderProfilePostponed();
 
+  // 🔥 ПРАВИЛЬНОЕ МЕСТО ДЛЯ ИНИЦИАЛИЗАЦИИ WEBAPP
   if (tg) {
+    tg.ready();
     tg.expand();
     tg.MainButton.text = 'Оформить заказ';
     tg.MainButton.onClick(checkout);
@@ -1277,6 +1274,7 @@ function attachEvents() {
     renderProfileSections();
     renderProfileOrders();
     renderProfilePostponed();
+
   });
 
   els.profileTabs.forEach(tab => {
