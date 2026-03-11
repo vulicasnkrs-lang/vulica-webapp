@@ -105,6 +105,12 @@ let selectedSize = null;
 async function init() {
   renderSkeletons();
   await loadProducts();
+   /* 🔥 Отключаем системные кнопки Telegram, чтобы он НЕ шарил свой URL */
+  if (tg) {
+    tg.SettingsButton.hide();
+    tg.disableVerticalSwipes();
+    tg.disableClosingConfirmation();
+  }
 // 🔥 Если WebApp открыт по ссылке с конкретным товаром
 if (tg?.initDataUnsafe?.start_param) {
   openProductScreen(tg.initDataUnsafe.start_param);
