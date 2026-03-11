@@ -1,6 +1,11 @@
 /* Telegram */
 const tg = window.Telegram?.WebApp || null;
 
+if (tg) {
+    tg.ready();
+    tg.expand();
+}
+
 /* ========================= */
 /*          STATE            */
 /* ========================= */
