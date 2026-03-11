@@ -1,0 +1,21 @@
+services:
+  - type: static
+    name: vulica-snkrs-webapp
+    staticPublishPath: static
+    buildCommand: ""
+    autoDeploy: true
+    routes:
+      # 1) Редирект /app → /app/
+      - type: redirect
+        source: /app
+        destination: /app/
+
+      # 2) SPA rewrite для WebApp
+      - type: rewrite
+        source: /app/*
+        destination: /app/index.html
+
+      # 3) Rewrite для share/product
+      - type: rewrite
+        source: /share/product/(.*)
+        destination: /share/product/$1.html
